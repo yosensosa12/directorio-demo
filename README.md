@@ -43,7 +43,7 @@ Un **sistema de directorio web** completamente funcional y adaptable a cualquier
 
 ## 🌐 Ver Demo en Vivo
 
-👉 **[DEMO INTERACTIVO](https://tu-usuario.github.io/directorio-demo/demo.html)**
+👉 **[DEMO INTERACTIVO](https://yosensosa12.github.io/directorio-demo/demo.html)**
 
 ## 🚀 Tecnologías Utilizadas
 
