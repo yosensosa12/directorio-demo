@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>🎯 DEMO - Sistema de Directorio | Template Base para Clientes</title>
+    
+    <!-- Tailwind CSS para estilos rápidos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet para mapas -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Sistema de Protección -->
+    <script src="js/protection.js" defer></script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .demo-badge {
+            animation: pulse 2s infinite;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+        }
+          .feature-icon {
+            background: linear-gradient(45deg, #4F46E5, #7C3AED);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+            height: 1px;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Estilos para la geolocalización */
+        .user-location-marker {
+            z-index: 1000;
+        }
+        
+        /* Efectos de pulso para botones */
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+        }
+        
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+        
+        /* Mejoras para el footer */
+        footer {
+            background-attachment: fixed;
+        }
+        
+        /* Animaciones suaves para cards */
+        .distance-badge {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Estilo para inputs focus */
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Mejoras responsive */
+        @media (max-width: 768px) {
+            .floating-element {
+                display: none;
+            }
+            
+            .glassmorphism {
+                backdrop-filter: blur(5px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">    <!-- Header con Demo Badge -->
+    <header class="gradient-hero text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-black">
+                        <i class="fas fa-building mr-3 floating-element"></i>
+                        Sistema de Directorio - DEMO
+                    </h1>
+                    <p class="text-blue-100 mt-3 text-lg font-medium">Template base para cualquier tipo de negocio local</p>
+                </div>
+                <div class="demo-badge text-gray-900 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                    <i class="fas fa-eye mr-2"></i>DEMO INTERACTIVO
+                </div>
+            </div>
+        </div>
+    </header>    <!-- Sección explicativa principal -->
+    <section class="py-16 bg-gradient-to-br from-white to-blue-50 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black text-gray-800 mb-6">
+                    🎯 ¿Qué es un Sistema de Directorio?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                    Un directorio digital es una plataforma web que permite a los usuarios encontrar, explorar y contactar negocios locales de manera fácil y rápida. 
+                    <strong class="text-blue-600">Este template se adapta a cualquier industria:</strong> Restaurantes, Médicos, Abogados, Inmobiliarias, Talleres, etc.
+                </p>
+            </div>
+
+            <!-- Tipos de negocios adaptables -->
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center p-8 bg-white rounded-2xl card-hover shadow-lg border border-blue-100">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-user-md text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2">Profesionales</h3>
+                    <p class="text-sm text-gray-600">Especialistas, clínicas, consultorios, horarios</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-2xl card-hover shadow-lg border border-green-100">
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-utensils text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2">Gastronomía</h3>
+                    <p class="text-sm text-gray-600">Restaurantes, menús, delivery, reseñas</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-2xl card-hover shadow-lg border border-purple-100">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-balance-scale text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2">Servicios</h3>
+                    <p class="text-sm text-gray-600">Abogados, especialidades, consultas</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-2xl card-hover shadow-lg border border-red-100">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-home text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2">Inmobiliarias</h3>
+                    <p class="text-sm text-gray-600">Propiedades, agentes, valoraciones</p>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="section-divider mb-16"></div>
+            
+            <!-- Más categorías -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl card-hover">
+                    <i class="fas fa-car text-3xl text-cyan-600 mb-3"></i>
+                    <h3 class="font-bold text-gray-800">Automotriz</h3>
+                    <p class="text-sm text-gray-600">Talleres, concesionarios, repuestos</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl card-hover">
+                    <i class="fas fa-graduation-cap text-3xl text-orange-600 mb-3"></i>
+                    <h3 class="font-bold text-gray-800">Educación</h3>
+                    <p class="text-sm text-gray-600">Institutos, academias, cursos</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl card-hover">
+                    <i class="fas fa-spa text-3xl text-pink-600 mb-3"></i>
+                    <h3 class="font-bold text-gray-800">Bienestar</h3>
+                    <p class="text-sm text-gray-600">Spas, centros de belleza, salud</p>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- Demo funcional de búsqueda -->
+    <section class="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-black text-center mb-12 text-gray-800">
+                <i class="fas fa-search mr-3 text-blue-600"></i>Demo: Sistema de Búsqueda Inteligente
+            </h2>
+            
+            <!-- Barra de búsqueda demo -->
+            <div class="max-w-6xl mx-auto mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border border-gray-200">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">🔍 Buscar por nombre</label>
+                            <input type="text" id="searchDemo" placeholder="Ej: Centro Médico, Restaurante..." 
+                                   class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">📍 Filtrar por zona</label>
+                            <select id="communeFilter" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-lg">
+                                <option value="">Todas las zonas</option>
+                                <option value="Centro">Centro</option>
+                                <option value="Norte">Zona Norte</option>
+                                <option value="Sur">Zona Sur</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">⚡ Servicios</label>
+                            <select id="serviceFilter" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-lg">
+                                <option value="">Todos los servicios</option>
+                                <option value="24 horas">24 horas</option>
+                                <option value="delivery">Delivery</option>
+                                <option value="urgencia">Atención urgencia</option>
+                            </select>
+                        </div>
+                    </div>
+                      <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="searchNow()" class="btn-primary text-white px-8 py-3 rounded-xl font-bold text-lg">
+                            <i class="fas fa-search mr-2"></i>Buscar Ahora
+                        </button>
+                        <button onclick="findNearMe()" id="nearMeBtn" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-location-arrow mr-2"></i>Buscar cerca de mí
+                        </button>
+                    </div>
+                    
+                    <!-- Indicador de geolocalización -->
+                    <div id="locationStatus" class="mt-4 text-center hidden">
+                        <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-lg">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            <span>Obteniendo tu ubicación...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resultados demo -->
+            <div id="resultsDemo" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se llenarán con JavaScript -->
+            </div>
+        </div>
+    </section>    <!-- Mapa interactivo demo -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-black text-center mb-12 text-gray-800">
+                <i class="fas fa-map-marker-alt mr-3 text-red-500"></i>Mapa Interactivo con Geolocalización
+            </h2>
+            <div class="max-w-6xl mx-auto">
+                <div id="mapDemo" class="h-96 rounded-2xl shadow-2xl border-4 border-blue-200"></div>
+                <p class="text-center text-gray-600 mt-6 text-lg">
+                    <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                    Los usuarios pueden ver todas las ubicaciones en el mapa y obtener direcciones automáticamente
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características técnicas -->
+    <section class="py-12 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">
+                🚀 Características Técnicas Incluidas
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Responsive Design</h3>
+                    <p class="text-gray-300">Funciona perfectamente en móviles, tablets y desktop</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">SEO Optimizado</h3>
+                    <p class="text-gray-300">Configurado para aparecer en Google y generar tráfico orgánico</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-dollar-sign text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Google AdSense</h3>
+                    <p class="text-gray-300">Sistema de monetización integrado para generar ingresos</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mapas Interactivos</h3>
+                    <p class="text-gray-300">Geolocalización y direcciones automáticas</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-yellow-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-filter text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Filtros Avanzados</h3>
+                    <p class="text-gray-300">Búsqueda por múltiples criterios y categorías</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">PWA Ready</h3>
+                    <p class="text-gray-300">Se puede instalar como app móvil nativa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso de personalización -->
+    <section class="py-12 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                🎨 Proceso de Personalización para tu Negocio
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold text-blue-600 mb-4">
+                            <i class="fas fa-cog mr-2"></i>Configuración Técnica
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Cambio de colores y branding</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Configuración de Google Analytics</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Setup de Google AdSense</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Optimización SEO para tu ciudad</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Configuración de dominio</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold text-green-600 mb-4">
+                            <i class="fas fa-database mr-2"></i>Contenido y Datos
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Carga de datos de tu industria</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Adaptación de campos específicos</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Configuración de categorías</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Integración con APIs externas</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Sistema de reseñas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de ficha de detalles -->
+    <div id="detailModal" class="fixed inset-0 modal-overlay z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-screen overflow-y-auto animate-fade-in">
+                <!-- Header del modal -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-2xl">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+                            <p id="modalCategory" class="text-blue-100 text-lg"></p>
+                        </div>
+                        <button onclick="closeModal()" class="text-white hover:text-gray-300 text-3xl font-bold">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contenido del modal -->
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Información principal -->
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-info-circle text-blue-500 mr-2"></i>Información de Contacto
+                            </h4>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <i class="fas fa-map-marker-alt text-red-500 w-6"></i>
+                                    <div class="ml-3">
+                                        <p class="font-medium text-gray-800">Dirección</p>
+                                        <p id="modalAddress" class="text-gray-600"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <i class="fas fa-phone text-green-500 w-6"></i>
+                                    <div class="ml-3">
+                                        <p class="font-medium text-gray-800">Teléfono</p>
+                                        <p id="modalPhone" class="text-gray-600"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <i class="fas fa-clock text-orange-500 w-6"></i>
+                                    <div class="ml-3">
+                                        <p class="font-medium text-gray-800">Horarios</p>
+                                        <p id="modalHours" class="text-gray-600"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <i class="fas fa-star text-yellow-500 w-6"></i>
+                                    <div class="ml-3">
+                                        <p class="font-medium text-gray-800">Calificación</p>
+                                        <div class="flex items-center">
+                                            <span id="modalRating" class="text-gray-600 mr-2"></span>
+                                            <div class="flex text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Servicios y acciones -->
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-cogs text-purple-500 mr-2"></i>Servicios Disponibles
+                            </h4>
+                            
+                            <div id="modalServices" class="grid grid-cols-2 gap-3 mb-6">
+                                <!-- Se llenarán dinámicamente -->
+                            </div>
+                            
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                                <h5 class="font-bold text-gray-800 mb-3">
+                                    <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Descripción
+                                </h5>
+                                <p id="modalDescription" class="text-gray-600 leading-relaxed"></p>
+                            </div>
+                            
+                            <!-- Botones de acción -->
+                            <div class="mt-6 space-y-3">
+                                <button class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-phone mr-2"></i>Llamar Ahora
+                                </button>
+                                <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-directions mr-2"></i>Cómo Llegar
+                                </button>
+                                <button class="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-globe mr-2"></i>Visitar Website
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- Call to Action -->
+    <section class="py-16 gradient-hero text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="relative container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-6">
+                ¿Listo para crear tu propio directorio?
+            </h2>
+            <p class="text-xl mb-10 text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                Este template se adapta a cualquier industria y está listo para generar ingresos desde el día 1. 
+                <strong class="text-white">¡Transforma tu idea en un negocio digital exitoso!</strong>
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
+                <button class="bg-white text-blue-600 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-eye mr-3"></i>Ver Demo Completo
+                </button>
+                <button class="bg-yellow-400 text-gray-900 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-rocket mr-3"></i>Solicitar Cotización
+                </button>
+                <button class="bg-green-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-green-400 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-whatsapp mr-3"></i>WhatsApp
+                </button>
+            </div>
+            
+            <!-- Estadísticas -->
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="glassmorphism p-6 rounded-2xl">
+                    <div class="text-3xl font-bold text-white mb-2">500+</div>
+                    <div class="text-blue-100">Proyectos Exitosos</div>
+                </div>
+                <div class="glassmorphism p-6 rounded-2xl">
+                    <div class="text-3xl font-bold text-white mb-2">15+</div>
+                    <div class="text-blue-100">Industrias Diferentes</div>
+                </div>
+                <div class="glassmorphism p-6 rounded-2xl">
+                    <div class="text-3xl font-bold text-white mb-2">95%</div>
+                    <div class="text-blue-100">Clientes Satisfechos</div>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- Footer llamativo -->
+    <footer class="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
+        <!-- Elementos decorativos de fondo -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-20 h-20 bg-blue-500 rounded-full animate-pulse"></div>
+            <div class="absolute top-32 right-20 w-16 h-16 bg-purple-500 rounded-full floating-element"></div>
+            <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-green-500 rounded-full animate-bounce"></div>
+            <div class="absolute bottom-32 right-1/3 w-8 h-8 bg-yellow-500 rounded-full floating-element"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-4 py-16">
+            <!-- Sección principal del footer -->
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Columna 1: Información principal -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl mr-4">
+                            <i class="fas fa-building text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Sistema de Directorio</h3>
+                            <p class="text-blue-200">Template Base Profesional</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Transforma tu idea en un negocio digital exitoso con nuestro sistema de directorio adaptable a cualquier industria. 
+                        <strong class="text-white">¡Más de 500 proyectos exitosos nos respaldan!</strong>
+                    </p>
+                    
+                    <!-- Estadísticas rápidas -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center p-3 bg-white bg-opacity-10 rounded-lg backdrop-blur-sm">
+                            <div class="text-2xl font-bold text-blue-400">500+</div>
+                            <div class="text-xs text-gray-300">Proyectos</div>
+                        </div>
+                        <div class="text-center p-3 bg-white bg-opacity-10 rounded-lg backdrop-blur-sm">
+                            <div class="text-2xl font-bold text-green-400">15+</div>
+                            <div class="text-xs text-gray-300">Industrias</div>
+                        </div>
+                        <div class="text-center p-3 bg-white bg-opacity-10 rounded-lg backdrop-blur-sm">
+                            <div class="text-2xl font-bold text-yellow-400">95%</div>
+                            <div class="text-xs text-gray-300">Satisfacción</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Servicios -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-blue-400">
+                        <i class="fas fa-cogs mr-2"></i>Nuestros Servicios
+                    </h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            Desarrollo de Directorios
+                        </li>
+                        <li class="flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            SEO y Marketing Digital
+                        </li>
+                        <li class="flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            Monetización AdSense
+                        </li>
+                        <li class="flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            Apps Móviles PWA
+                        </li>
+                        <li class="flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            Soporte 24/7
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Contacto y CTA -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-purple-400">
+                        <i class="fas fa-rocket mr-2"></i>¡Comienza Ahora!
+                    </h4>
+                    
+                    <div class="space-y-4 mb-6">
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-whatsapp mr-2"></i>WhatsApp
+                        </button>
+                        <button class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-envelope mr-2"></i>Email
+                        </button>
+                        <button class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-calendar mr-2"></i>Agendar Demo
+                        </button>
+                    </div>
+                    
+                    <!-- Redes sociales -->
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-300 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-500 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Separador -->
+            <div class="border-t border-gray-700 mb-8"></div>
+            
+            <!-- Newsletter y garantías -->
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-yellow-400">
+                        <i class="fas fa-envelope-open-text mr-2"></i>¡Mantente Informado!
+                    </h4>
+                    <p class="text-gray-300 mb-4">Recibe tips, actualizaciones y ofertas exclusivas</p>
+                    <div class="flex">
+                        <input type="email" placeholder="tu-email@ejemplo.com" 
+                               class="flex-1 px-4 py-3 rounded-l-xl border-0 text-gray-900 focus:ring-2 focus:ring-blue-500">
+                        <button class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 px-6 py-3 rounded-r-xl font-bold transition-all duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">
+                        <i class="fas fa-shield-alt mr-2"></i>Nuestras Garantías
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-3 bg-green-900 bg-opacity-30 rounded-lg">
+                            <i class="fas fa-clock text-green-400 text-xl mb-2"></i>
+                            <div class="text-sm font-medium">Entrega</div>
+                            <div class="text-xs text-gray-300">7-15 días</div>
+                        </div>
+                        <div class="text-center p-3 bg-blue-900 bg-opacity-30 rounded-lg">
+                            <i class="fas fa-headset text-blue-400 text-xl mb-2"></i>
+                            <div class="text-sm font-medium">Soporte</div>
+                            <div class="text-xs text-gray-300">24/7</div>
+                        </div>
+                        <div class="text-center p-3 bg-purple-900 bg-opacity-30 rounded-lg">
+                            <i class="fas fa-undo text-purple-400 text-xl mb-2"></i>
+                            <div class="text-sm font-medium">Garantía</div>
+                            <div class="text-xs text-gray-300">30 días</div>
+                        </div>
+                        <div class="text-center p-3 bg-yellow-900 bg-opacity-30 rounded-lg">
+                            <i class="fas fa-star text-yellow-400 text-xl mb-2"></i>
+                            <div class="text-sm font-medium">Calidad</div>
+                            <div class="text-xs text-gray-300">Premium</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer bottom -->
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400 mb-4">
+                    &copy; 2025 Sistema de Directorio - Template Base. Todos los derechos reservados.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                    <a href="#" class="hover:text-white transition-colors">Términos de Servicio</a>
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                    <a href="#" class="hover:text-white transition-colors">FAQ</a>
+                    <a href="#" class="hover:text-white transition-colors">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </footer><script>
+        // Variables globales para geolocalización
+        let userLocation = null;
+        let mapInstance = null;
+
+        // Datos demo genéricos para no revelar nicho específico
+        const demoData = [
+            {
+                name: "Centro Médico Providencia",
+                address: "Av. Providencia 1234, Providencia",
+                commune: "Centro",
+                phone: "+56 2 2XXX XXXX",
+                services: "24 horas, urgencia, especialistas",
+                rating: 4.5,
+                lat: -33.4167,
+                lng: -70.5833,
+                category: "Centro Médico",
+                hours: "Lunes a Domingo 8:00 - 22:00",
+                description: "Centro médico especializado en atención integral con los mejores profesionales y tecnología de punta para brindar la mejor atención a nuestros pacientes.",
+                servicesList: ["Medicina General", "Especialistas", "Urgencias", "Laboratorio", "Radiología", "Cardiología"]
+            },
+            {
+                name: "Restaurante Gourmet Central",
+                address: "Av. Principal 5678, Centro",
+                commune: "Centro", 
+                phone: "+56 2 2XXX XXXX",
+                services: "delivery, reservas, eventos",
+                rating: 4.2,
+                lat: -33.4263,
+                lng: -70.6185,
+                category: "Restaurante",
+                hours: "Lunes a Viernes 12:00 - 23:00, Sábados 13:00 - 24:00",
+                description: "Restaurante gourmet con los mejores platos de la cocina internacional y nacional, ambiente acogedor y servicio de primera calidad para toda la familia.",
+                servicesList: ["Comida Internacional", "Delivery", "Reservas", "Eventos", "Catering", "Terraza"]
+            },
+            {
+                name: "Estudio Jurídico Norte",
+                address: "Calle Norte 9876, Zona Norte",
+                commune: "Norte",
+                phone: "+56 2 2XXX XXXX", 
+                services: "consultas, asesoría, litigios",
+                rating: 4.8,
+                lat: -33.3965,
+                lng: -70.5730,
+                category: "Estudio Jurídico",
+                hours: "Lunes a Viernes 9:00 - 18:00",
+                description: "Estudio jurídico especializado en diversas áreas del derecho con amplia experiencia y compromiso en la defensa de los intereses de nuestros clientes.",
+                servicesList: ["Derecho Civil", "Derecho Penal", "Derecho Laboral", "Asesoría Legal", "Litigios", "Contratos"]
+            },
+            {
+                name: "Academia de Idiomas Sur",
+                address: "Av. Sur 3456, Zona Sur",
+                commune: "Sur",
+                phone: "+56 2 2XXX XXXX",
+                services: "cursos, certificaciones, online",
+                rating: 4.3,
+                lat: -33.4500,
+                lng: -70.6500,
+                category: "Centro Educativo",
+                hours: "Lunes a Sábado 8:00 - 21:00",
+                description: "Academia líder en enseñanza de idiomas con metodologías innovadoras y profesores nativos para garantizar el mejor aprendizaje.",
+                servicesList: ["Inglés", "Francés", "Alemán", "Certificaciones", "Cursos Online", "Empresas"]
+            }
+        ];        // Función para buscar lugares cerca del usuario
+        function findNearMe() {
+            const statusDiv = document.getElementById('locationStatus');
+            const nearMeBtn = document.getElementById('nearMeBtn');
+            
+            // Mostrar indicador de carga
+            statusDiv.classList.remove('hidden');
+            nearMeBtn.disabled = true;
+            nearMeBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Buscando...';
+            
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        
+                        // Actualizar estado visual
+                        statusDiv.innerHTML = `
+                            <div class="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-lg">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <span>¡Ubicación encontrada! Mostrando lugares cercanos</span>
+                            </div>
+                        `;
+                        
+                        // Buscar lugares cercanos
+                        findNearestPlaces();
+                        
+                        // Centrar mapa en la ubicación del usuario
+                        if (mapInstance) {
+                            mapInstance.setView([userLocation.lat, userLocation.lng], 14);
+                            
+                            // Agregar marcador del usuario
+                            L.marker([userLocation.lat, userLocation.lng], {
+                                icon: L.divIcon({
+                                    className: 'user-location-marker',
+                                    html: '<div style="background: #ef4444; border: 3px solid white; border-radius: 50%; width: 20px; height: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);"></div>',
+                                    iconSize: [20, 20],
+                                    iconAnchor: [10, 10]
+                                })
+                            }).addTo(mapInstance)
+                            .bindPopup('<div class="text-center p-2"><strong>Tu ubicación</strong></div>');
+                        }
+                        
+                        // Restaurar botón
+                        setTimeout(() => {
+                            nearMeBtn.disabled = false;
+                            nearMeBtn.innerHTML = '<i class="fas fa-location-arrow mr-2"></i>Buscar cerca de mí';
+                            statusDiv.classList.add('hidden');
+                        }, 3000);
+                    },
+                    function(error) {
+                        let errorMessage = "No se pudo obtener tu ubicación. ";
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += "Permiso denegado por el usuario.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += "Información de ubicación no disponible.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += "Tiempo de espera agotado.";
+                                break;
+                            default:
+                                errorMessage += "Error desconocido.";
+                                break;
+                        }
+                        
+                        statusDiv.innerHTML = `
+                            <div class="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded-lg">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                <span>${errorMessage}</span>
+                            </div>
+                        `;
+                        
+                        // Restaurar botón
+                        nearMeBtn.disabled = false;
+                        nearMeBtn.innerHTML = '<i class="fas fa-location-arrow mr-2"></i>Buscar cerca de mí';
+                        
+                        setTimeout(() => {
+                            statusDiv.classList.add('hidden');
+                        }, 5000);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 60000
+                    }
+                );
+            } else {
+                statusDiv.innerHTML = `
+                    <div class="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded-lg">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <span>Tu navegador no soporta geolocalización</span>
+                    </div>
+                `;
+                
+                nearMeBtn.disabled = false;
+                nearMeBtn.innerHTML = '<i class="fas fa-location-arrow mr-2"></i>Buscar cerca de mí';
+                
+                setTimeout(() => {
+                    statusDiv.classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        // Función para calcular distancia entre dos puntos (fórmula de Haversine)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radio de la Tierra en kilómetros
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+            return distance;
+        }
+
+        // Función para encontrar lugares más cercanos
+        function findNearestPlaces() {
+            if (!userLocation) return;
+            
+            // Agregar distancia a cada lugar
+            const placesWithDistance = demoData.map(place => ({
+                ...place,
+                distance: calculateDistance(
+                    userLocation.lat, 
+                    userLocation.lng, 
+                    place.lat, 
+                    place.lng
+                )
+            }));
+            
+            // Ordenar por distancia
+            placesWithDistance.sort((a, b) => a.distance - b.distance);
+            
+            // Renderizar resultados ordenados por proximidad
+            renderResults(placesWithDistance, true);
+        }
+
+        // Función para búsqueda manual
+        function searchNow() {
+            filterData();
+        }
+
+        // Función para renderizar resultados (actualizada para mostrar distancia)
+        function renderResults(data, showDistance = false) {
+            const resultsContainer = document.getElementById('resultsDemo');
+            resultsContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-600 mb-2">No se encontraron resultados</h3>
+                        <p class="text-gray-500">Intenta con otros criterios de búsqueda</p>
+                    </div>
+                `;
+                return;
+            }
+
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-8 rounded-2xl shadow-xl card-hover border border-gray-100';
+                
+                const distanceHTML = showDistance && item.distance ? 
+                    `<div class="flex items-center text-green-600 bg-green-50 px-3 py-1 rounded-full text-sm font-medium mb-3">
+                        <i class="fas fa-route mr-1"></i>
+                        ${item.distance.toFixed(1)} km
+                    </div>` : '';
+                
+                card.innerHTML = `
+                    ${distanceHTML}
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">${item.name}</h3>
+                            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">${item.category}</span>
+                        </div>
+                        <div class="flex items-center text-yellow-500 bg-yellow-50 px-3 py-2 rounded-lg">
+                            <i class="fas fa-star mr-1"></i>
+                            <span class="text-gray-700 font-bold">${item.rating}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <p class="text-gray-600 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-red-500 w-5"></i>
+                            ${item.address}
+                        </p>
+                        <p class="text-gray-600 flex items-center">
+                            <i class="fas fa-phone mr-3 text-green-500 w-5"></i>
+                            ${item.phone}
+                        </p>
+                        <p class="text-gray-600 flex items-center">
+                            <i class="fas fa-clock mr-3 text-orange-500 w-5"></i>
+                            ${item.hours}
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        ${item.servicesList.slice(0, 3).map(service => 
+                            `<span class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">${service}</span>`
+                        ).join('')}
+                        ${item.servicesList.length > 3 ? `<span class="bg-gray-200 text-gray-600 text-xs px-3 py-1 rounded-full">+${item.servicesList.length - 3} más</span>` : ''}
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button onclick="openModal(${data.indexOf(item)})" class="flex-1 btn-primary text-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300">
+                            <i class="fas fa-eye mr-2"></i>Ver Detalles
+                        </button>
+                        <button onclick="getDirections(${item.lat}, ${item.lng})" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300">
+                            <i class="fas fa-directions mr-2"></i>Ubicación
+                        </button>
+                    </div>
+                `;
+                resultsContainer.appendChild(card);
+            });
+        }
+
+        // Función para obtener direcciones
+        function getDirections(lat, lng) {
+            if (userLocation) {
+                // Abrir Google Maps con direcciones
+                const url = `https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lng}/${lat},${lng}`;
+                window.open(url, '_blank');
+            } else {
+                // Solo mostrar la ubicación
+                const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir modal
+        function openModal(index) {
+            const item = demoData[index];
+            
+            document.getElementById('modalTitle').textContent = item.name;
+            document.getElementById('modalCategory').textContent = item.category;
+            document.getElementById('modalAddress').textContent = item.address;
+            document.getElementById('modalPhone').textContent = item.phone;
+            document.getElementById('modalHours').textContent = item.hours;
+            document.getElementById('modalRating').textContent = `${item.rating}/5.0`;
+            document.getElementById('modalDescription').textContent = item.description;
+            
+            // Llenar servicios
+            const servicesContainer = document.getElementById('modalServices');
+            servicesContainer.innerHTML = '';
+            item.servicesList.forEach(service => {
+                const serviceElement = document.createElement('div');
+                serviceElement.className = 'bg-blue-50 text-blue-800 text-sm font-medium px-3 py-2 rounded-lg text-center';
+                serviceElement.innerHTML = `<i class="fas fa-check mr-1"></i>${service}`;
+                servicesContainer.appendChild(serviceElement);
+            });
+            
+            document.getElementById('detailModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Función para cerrar modal
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Función para filtrar datos
+        function filterData() {
+            const searchTerm = document.getElementById('searchDemo').value.toLowerCase();
+            const communeFilter = document.getElementById('communeFilter').value;
+            const serviceFilter = document.getElementById('serviceFilter').value;
+
+            let filtered = demoData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm) || 
+                                    item.address.toLowerCase().includes(searchTerm) ||
+                                    item.category.toLowerCase().includes(searchTerm);
+                const matchesCommune = !communeFilter || item.commune === communeFilter;
+                const matchesService = !serviceFilter || item.services.toLowerCase().includes(serviceFilter.toLowerCase());
+                
+                return matchesSearch && matchesCommune && matchesService;
+            });
+
+            renderResults(filtered);
+        }        // Inicializar mapa
+        function initMap() {
+            mapInstance = L.map('mapDemo').setView([-33.4489, -70.6693], 12);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(mapInstance);
+
+            // Agregar marcadores
+            demoData.forEach((item, index) => {
+                const marker = L.marker([item.lat, item.lng]).addTo(mapInstance);
+                
+                marker.bindPopup(`
+                    <div class="p-3 min-w-48">
+                        <h3 class="font-bold text-lg mb-2">${item.name}</h3>
+                        <p class="text-sm text-gray-600 mb-1">${item.category}</p>
+                        <p class="text-sm text-gray-600 mb-2">${item.address}</p>
+                        <div class="flex items-center mb-3">
+                            <span class="text-yellow-500 mr-1">⭐</span>
+                            <span class="font-medium">${item.rating}</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openModal(${index})" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors">
+                                Ver Detalles
+                            </button>
+                            <button onclick="getDirections(${item.lat}, ${item.lng})" class="bg-green-500 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition-colors">
+                                Direcciones
+                            </button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // Event listeners
+        document.getElementById('searchDemo').addEventListener('input', filterData);
+        document.getElementById('communeFilter').addEventListener('change', filterData);
+        document.getElementById('serviceFilter').addEventListener('change', filterData);
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            renderResults(demoData);
+            initMap();
+        });
+    </script>
+</body>
+</html>
