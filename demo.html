@@ -15,9 +15,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
       <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+      <!-- Sistema de Protección -->
+    <script src="js/protection.js" defer></script>
     
-    <!-- Sistema de Protección -->
-    <script src="/directorio-demo/protection.js" defer></script>
+    <!-- Verificador de Licencia -->
+    <script src="license-checker.js"></script>
     
     <style>
         * {
@@ -298,6 +300,35 @@
                 <p class="text-center text-gray-600 mt-6 text-lg">
                     <i class="fas fa-info-circle mr-2 text-blue-500"></i>
                     Los usuarios pueden ver todas las ubicaciones en el mapa y obtener direcciones automáticamente
+                </p>
+            </div>
+        </div>    </section>
+
+    <!-- Nueva sección de capturas de pantalla -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-black text-center mb-12 text-gray-800">
+                <i class="fas fa-images mr-3 text-purple-500"></i>Capturas de Pantalla
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Desktop Version -->
+                <div class="rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-center py-3 bg-indigo-600 text-white">Versión Desktop</h3>
+                    <iframe src="images/desktop-demo.html" class="w-full h-64 border-0"></iframe>
+                </div>
+                
+                <!-- Mobile Version -->
+                <div class="rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-center py-3 bg-green-600 text-white">Versión Móvil</h3>
+                    <iframe src="images/mobile-demo.html" class="w-full h-64 border-0"></iframe>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-gray-600 text-lg">
+                    <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                    Vista previa de cómo se ve el sistema en diferentes dispositivos
                 </p>
             </div>
         </div>

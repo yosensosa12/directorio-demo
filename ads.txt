@@ -1,0 +1,9 @@
+# ads.txt - Authorized Digital Sellers - Farmacias Santiago Template
+# IMPORTANTE: Reemplaza con tu Publisher ID real de Google AdSense
+
+google.com, pub-XXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# Líneas adicionales para otros partners (opcional)
+# Ejemplo para otros ad networks:
+# partner.com, PARTNER-ID, DIRECT
+# reseller.com, RESELLER-ID, RESELLER

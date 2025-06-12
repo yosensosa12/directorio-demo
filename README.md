@@ -43,7 +43,7 @@ Un **sistema de directorio web** completamente funcional y adaptable a cualquier
 
 ## 🌐 Ver Demo en Vivo
 
-👉 **[DEMO INTERACTIVO](https://yosensosa12.github.io/directorio-demo/demo.html)**
+👉 **[DEMO INTERACTIVO](https://tu-usuario.github.io/directorio-demo/demo.html)**
 
 ## 🚀 Tecnologías Utilizadas
 
@@ -66,10 +66,10 @@ Un **sistema de directorio web** completamente funcional y adaptable a cualquier
 ## 🎨 Capturas de Pantalla
 
 ### 🖥️ Versión Desktop
-![Desktop Demo](https://via.placeholder.com/800x400/4F46E5/white?text=Desktop+Demo)
+![Desktop Demo](images/desktop-demo.html)
 
 ### 📱 Versión Móvil
-![Mobile Demo](https://via.placeholder.com/400x600/10B981/white?text=Mobile+Demo)
+![Mobile Demo](images/mobile-demo.html)
 
 ## 🔧 Personalización
 
@@ -100,9 +100,8 @@ Este es un **template base** que se adapta a cualquier industria.
 - ✅ Soporte técnico 30 días
 
 ### 💬 **Contacto:**
-- 📱 **WhatsApp**: [Tu número]
-- 📧 **Email**: [Tu email]
-- 💬 **Telegram**: [Tu usuario]
+-  **Email**: yosensosa1234@gmail.com
+- 💬 **Telegram**: @Yosensosa
 
 ---
 
@@ -120,9 +119,30 @@ Este es un **template base** que se adapta a cualquier industria.
 
 ---
 
-## 📄 Licencia
+## 📄 Licencia y Uso Comercial
 
-Este proyecto está bajo la [Licencia MIT](LICENSE) - ver el archivo LICENSE para detalles.
+Este proyecto se distribuye bajo licencia personalizada con las siguientes condiciones:
+
+### ✅ Usos permitidos:
+- Ver el código y demo para fines educativos
+- Clonar el repositorio para pruebas personales
+- Compartir el enlace del demo y repositorio
+
+### ❌ Usos no permitidos sin licencia comercial:
+- Uso comercial del código
+- Redistribución con o sin modificaciones
+- Uso en proyectos comerciales propios o de terceros
+
+### 💼 Licencias comerciales disponibles:
+- **Basic:** 49 € - Un proyecto, características básicas
+- **Premium:** 149 € - Tres proyectos, todas las características
+- **Enterprise:** 349 € o 29 €/mes - Proyectos ilimitados, código fuente sin ofuscar
+
+Para información sobre licencias comerciales:
+- � **Email**: yosensosa1234@gmail.com
+- � **Telegram**: @Yosensosa
+
+Ver [LICENSE.md](LICENSE.md) para más detalles.
 
 ---
 
